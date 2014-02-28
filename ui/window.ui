@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
-    <height>433</height>
+    <width>357</width>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -94,6 +94,12 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>75</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>Create</string>
             </property>
@@ -106,6 +112,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>75</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="text">
              <string>Close</string>
@@ -125,7 +137,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>336</width>
+     <width>357</width>
      <height>21</height>
     </rect>
    </property>

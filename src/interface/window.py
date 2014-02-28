@@ -20,9 +20,16 @@ class Window(Form, Base):
         super(Window, self).__init__(parent)
         self.setupUi(self)
         
+        self.files = []
+        
+        self.browseButton.clicked.connect(self.setFiles)
+        self.closeButton.clicked.connect(self.close)
+        
         self.formats = "*.tiff *.tif *.png *.jpeg *jpg *.tga *.tx" 
         
-    def files(self):
-        files = QFileDialog.getOpenFileNames(self,
+    def setFiles(self):
+        fls = QFileDialog.getOpenFileNames(self,
                                              "Select Files", "", self.formats)
-        print files
+        if fls:
+            self.files[:] = fls
+        else: self.files[:] = []
