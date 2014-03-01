@@ -29,7 +29,12 @@ class Window(Form, Base):
         
         self.progressBar.hide()
         
-        self.formats = "*.tiff *.tif *.png *.jpeg *jpg *.tga *.tx" 
+        self.formats = "*.tiff *.tif *.png *.jpeg *jpg *.tga *.tx"
+        
+        # update the database, how many times this app is used
+        site.addsitedir(r'r:/pipe_repo/users/qurban')
+        import appUsageApp
+        appUsageApp.updateDatabase('createUDIM')
         
     def create(self):
         self.progressBar.show()
@@ -76,7 +81,7 @@ class Window(Form, Base):
                 self.progressBar.setValue(x)
                 qApp.processEvents()
             
-            placeNodes = sorted(placeNodes)
+            #placeNodes = sorted(placeNodes)
             y = 0
             while True:
                 for i in range(10):
