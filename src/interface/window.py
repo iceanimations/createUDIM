@@ -3,8 +3,6 @@ site.addsitedir(r"R:\Pipe_Repo\Users\Qurban\utilities")
 from uiContainer import uic
 from PyQt4.QtGui import *
 from PyQt4.QtCore import Qt
-
-site.addsitedir(r"R:\Pipe_Repo\Users\Hussain\packages")
 import qtify_maya_window as qtfy
 
 import os.path as osp
@@ -36,13 +34,18 @@ class Window(Form, Base):
         import appUsageApp
         appUsageApp.updateDatabase('createUDIM')
         
+    def closeEvent(self, event):
+        self.deleteLater()
+        
+    def hideEvent(self, event):
+        self.close()
+        
     def create(self):
         self.progressBar.show()
         qApp.processEvents()
         placeNodes = []
         lt = pc.createNode('layeredTexture')
         gamma = self.addGammaButton.isChecked()
-        print gamma
         num = len(self.files)
         self.progressBar.setMaximum(num)
         self.progressBar.setMinimum(0)
@@ -93,10 +96,11 @@ class Window(Form, Base):
                 if not placeNodes:
                     break
                 y += 1
-            
             pc.select(lt)
-            pc.mel.hyperShadePanelGraphCommand("hyperShadePanel1",
-                                               "showUpAndDownstream")
+            try:
+                pc.mel.hyperShadePanelGraphCommand("hyperShadePanel1",
+                                                   "showUpAndDownstream")
+            except: pass
         self.progressBar.hide()
     
     def createFileNode(self, name, num):
@@ -123,6 +127,9 @@ class Window(Form, Base):
     def setFiles(self):
         fls = QFileDialog.getOpenFileNames(self,
                                              "Select Files", "", self.formats)
+        version = pc.about(v=True)
+        if '2014' in version or '2015' in version:
+            fls = fls[0]
         if fls:
             self.files[:] = fls
             self.setFileNames()
