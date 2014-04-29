@@ -2,7 +2,7 @@ import site
 site.addsitedir(r"R:\Pipe_Repo\Users\Qurban\utilities")
 from uiContainer import uic
 from PyQt4.QtGui import *
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QRegExp
 import qtify_maya_window as qtfy
 
 import os.path as osp
@@ -127,8 +127,9 @@ class Window(Form, Base):
     def setFiles(self):
         fls = QFileDialog.getOpenFileNames(self,
                                              "Select Files", "", self.formats)
-        version = pc.about(v=True)
-        if '2014' in version or '2015' in version:
+        regex = QRegExp('\d{4}')
+        regex.indexIn(pc.about(v=True))
+        if int(regex.capturedTexts()[0]) > 2013:
             fls = fls[0]
         if fls:
             self.files[:] = fls
